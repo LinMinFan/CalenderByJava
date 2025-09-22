@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MySQLContext" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/calendar?serverTimezone=Asia/Taipei"
+                        userId="laravel" password="!QAZ1qaz">
+        </jdbcConnection>
+        <javaModelGenerator targetPackage="org.example.calendar.dao.persistence" targetProject="src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="mybatis.mappers" targetProject="src/main/resources"/>
+        <javaClientGenerator targetPackage="org.example.calendar.dao.mapper" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="type" value="XMLMAPPER" />
+        </javaClientGenerator>
+
+        <!-- users 表 -->
+        <table tableName="users" domainObjectName="User">
+            <columnOverride column="created_at" jdbcType="TIMESTAMP"/>
+            <columnOverride column="updated_at" jdbcType="TIMESTAMP"/>
+        </table>
+
+        <!-- calendars 表 -->
+        <table tableName="calendars" domainObjectName="Calendar">
+            <columnOverride column="created_at" jdbcType="TIMESTAMP"/>
+            <columnOverride column="updated_at" jdbcType="TIMESTAMP"/>
+        </table>
+
+        <!-- events 表 -->
+        <table tableName="events" domainObjectName="Event">
+            <columnOverride column="start_datetime" jdbcType="TIMESTAMP"/>
+            <columnOverride column="end_datetime" jdbcType="TIMESTAMP"/>
+            <columnOverride column="created_at" jdbcType="TIMESTAMP"/>
+            <columnOverride column="updated_at" jdbcType="TIMESTAMP"/>
+        </table>
+
+        <!-- reminders 表 -->
+        <table tableName="reminders" domainObjectName="Reminder">
+            <columnOverride column="created_at" jdbcType="TIMESTAMP"/>
+        </table>
+    </context>
+</generatorConfiguration>

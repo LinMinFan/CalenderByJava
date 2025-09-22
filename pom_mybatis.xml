@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 獨立專案，不繼承 -->
+    <groupId>org.example.calendar</groupId>
+    <artifactId>calendar-mybatis</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>calendar-mybatis-generator</name>
+    <description>MyBatis Generator for Calendar (MySQL)</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.4.2</version>
+                <executions>
+                    <execution>
+                        <id>generate-mybatis-mysql</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <!-- MySQL JDBC 驅動 -->
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.33</version>
+                    </dependency>
+                    <!-- 若有自訂 Plugin，再加入此處 -->
+                    <!--
+                    <dependency>
+                      <groupId>tw.hci.mybatis</groupId>
+                      <artifactId>pagination</artifactId>
+                      <version>1.0.0</version>
+                      <scope>system</scope>
+                      <systemPath>${project.basedir}/lib/hci-mybatis-pagination.jar</systemPath>
+                    </dependency>
+                    -->
+                </dependencies>
+                <configuration>
+                    <!-- 生成檔案根目錄（可改為 src/main/java 根路徑） -->
+                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                    <configurationFile>${project.basedir}/mybatisGeneratorConfig.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

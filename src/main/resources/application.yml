@@ -1,0 +1,14 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/calendar?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Taipei
+    username: laravel
+    password: '!QAZ1qaz'
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mybatis/**/*Mapper.xml # XML files location
+  configuration:
+    call-setters-on-nulls: true
+    map-underscore-to-camel-case: true
