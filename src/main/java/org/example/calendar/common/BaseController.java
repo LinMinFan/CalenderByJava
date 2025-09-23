@@ -39,7 +39,6 @@ public class BaseController {
      * exception處理及新增API log
      *
      * @author jack
-     * @param service
      * @param e
      * @return
      */
