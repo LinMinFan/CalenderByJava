@@ -35,6 +35,9 @@ public class AddEventReq {
     @FutureOrPresent(message = "日期必須是今天或未來的日期")
     private Date recurrenceEndDate;
 
+    @NotNull(message = "{validation.notEmpty}")
+    private Long createdBy;
+
     // 自訂驗證：結束時間必須晚於開始時間
     @AssertTrue(message = "結束時間必須晚於開始時間")
     public boolean isEndAfterStart() {

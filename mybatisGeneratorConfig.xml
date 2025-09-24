@@ -20,7 +20,7 @@
         </javaClientGenerator>
 
         <!-- users 表 -->
-        <table tableName="users" domainObjectName="User">
+        <table tableName="calendar_users" domainObjectName="User">
             <columnOverride column="created_at" jdbcType="TIMESTAMP"/>
             <columnOverride column="updated_at" jdbcType="TIMESTAMP"/>
         </table>
@@ -32,7 +32,7 @@
         </table>
 
         <!-- events 表 -->
-        <table tableName="events" domainObjectName="Event">
+        <table tableName="calendar_events" domainObjectName="Event">
             <columnOverride column="start_datetime" jdbcType="TIMESTAMP"/>
             <columnOverride column="end_datetime" jdbcType="TIMESTAMP"/>
             <columnOverride column="created_at" jdbcType="TIMESTAMP"/>
@@ -40,7 +40,7 @@
         </table>
 
         <!-- reminders 表 -->
-        <table tableName="reminders" domainObjectName="Reminder">
+        <table tableName="calendar_reminders" domainObjectName="Reminder">
             <columnOverride column="created_at" jdbcType="TIMESTAMP"/>
         </table>
     </context>
