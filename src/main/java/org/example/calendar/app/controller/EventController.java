@@ -2,6 +2,7 @@ package org.example.calendar.app.controller;
 
 import org.example.calendar.app.service.EventService;
 import org.example.calendar.app.vo.AddEventReq;
+import org.example.calendar.app.vo.EditEventReq;
 import org.example.calendar.common.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,27 @@ public class EventController extends BaseController {
      * 新增事件
      *
      * @author jack
-     * @param req
-     * @return
-     * @throws Exception
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
      */
     @PostMapping(value = "/addEvent")
     public ResponseEntity<String> addEvent(@RequestBody @Validated AddEventReq req) throws Exception {
         String response = service.executeAddEvent(req);
+        return returnResponse(response);
+    }
+
+    /**
+     * 編輯事件
+     *
+     * @author jack
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
+     */
+    @PostMapping(value = "/editEvent")
+    public ResponseEntity<String> editEvent(@RequestBody @Validated EditEventReq req) throws Exception {
+        String response = service.executeEditEvent(req);
         return returnResponse(response);
     }
 }
