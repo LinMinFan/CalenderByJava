@@ -3,6 +3,7 @@ package org.example.calendar.app.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.example.calendar.app.service.EventService;
 import org.example.calendar.app.vo.AddEventReq;
+import org.example.calendar.app.vo.DeleteEventReq;
 import org.example.calendar.app.vo.EditEventReq;
 import org.example.calendar.common.BaseService;
 import org.example.calendar.common.StatusMessage;
@@ -26,9 +27,9 @@ public class EventServiceImpl extends BaseService implements EventService {
      * 新增事件
      *
      * @author jack
-     * @param req
-     * @return
-     * @throws Exception
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -61,9 +62,9 @@ public class EventServiceImpl extends BaseService implements EventService {
      * 更新事件
      *
      * @author jack
-     * @param req
-     * @return
-     * @throws Exception
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -92,6 +93,42 @@ public class EventServiceImpl extends BaseService implements EventService {
             response = executeAPIResponseForMap(null, StatusMessage.N_0, null);
         } catch (Exception e) {
             log.error("CalenderServiceImpl executeEditEvent Exception", e);
+            throw e;
+        }
+
+        return response;
+    }
+
+    /**
+     * 刪除事件
+     *
+     * @author jack
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String executeDeleteEvent(DeleteEventReq req) throws CustomAPIException,Exception {
+        String response = "";
+
+        try {
+
+            // 1. 先檢查事件是否存在
+            Event existing = eventMapper.selectByPrimaryKey(req.getId());
+            if (existing == null) {
+                return executeAPIResponseForMap(null, StatusMessage.N_203, null);
+            }
+
+            // 2. 執行刪除
+            int rows = eventMapper.deleteByPrimaryKey(req.getId());
+            if (rows != 1) {
+                return executeAPIResponseForMap(null, StatusMessage.N_300, null);
+            }
+
+            response = executeAPIResponseForMap(null, StatusMessage.N_0, null);
+        } catch (Exception e) {
+            log.error("CalenderServiceImpl executeDeleteEvent Exception", e);
             throw e;
         }
 

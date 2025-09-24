@@ -1,6 +1,7 @@
 package org.example.calendar.app.service;
 
 import org.example.calendar.app.vo.AddEventReq;
+import org.example.calendar.app.vo.DeleteEventReq;
 import org.example.calendar.app.vo.EditEventReq;
 import org.example.calendar.exception.CustomAPIException;
 
@@ -34,7 +35,7 @@ public interface EventService {
      * @return 成功訊息
      * @throws Exception 操作失敗時
      */
-//    public String executeDeleteEvent(DeleteEventReq req) throws CustomAPIException,Exception;
+    public String executeDeleteEvent(DeleteEventReq req) throws CustomAPIException,Exception;
 
     /**
      * 查詢事件
