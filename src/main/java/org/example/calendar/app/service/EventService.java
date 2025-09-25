@@ -3,6 +3,7 @@ package org.example.calendar.app.service;
 import org.example.calendar.app.vo.AddEventReq;
 import org.example.calendar.app.vo.DeleteEventReq;
 import org.example.calendar.app.vo.EditEventReq;
+import org.example.calendar.app.vo.QueryEventReq;
 import org.example.calendar.exception.CustomAPIException;
 
 public interface EventService {
@@ -45,5 +46,5 @@ public interface EventService {
      * @return 成功訊息
      * @throws Exception 操作失敗時
      */
-//    public String executeQueryEvent(QueryEventReq req) throws CustomAPIException,Exception;
+    public String executeQueryEvent(QueryEventReq req) throws CustomAPIException,Exception;
 }

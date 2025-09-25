@@ -4,6 +4,7 @@ import org.example.calendar.app.service.EventService;
 import org.example.calendar.app.vo.AddEventReq;
 import org.example.calendar.app.vo.DeleteEventReq;
 import org.example.calendar.app.vo.EditEventReq;
+import org.example.calendar.app.vo.QueryEventReq;
 import org.example.calendar.common.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +60,20 @@ public class EventController extends BaseController {
     @PostMapping(value = "/deleteEvent")
     public ResponseEntity<String> deleteEvent(@RequestBody @Validated DeleteEventReq req) throws Exception {
         String response = service.executeDeleteEvent(req);
+        return returnResponse(response);
+    }
+
+    /**
+     * 查詢事件
+     *
+     * @author jack
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
+     */
+    @PostMapping(value = "/queryEvent")
+    public ResponseEntity<String> queryEvent(@RequestBody @Validated QueryEventReq req) throws Exception {
+        String response = service.executeQueryEvent(req);
         return returnResponse(response);
     }
 }
