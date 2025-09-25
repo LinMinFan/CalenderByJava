@@ -1,22 +1,19 @@
 package org.example.calendar.app.vo;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class AddCalenderReq {
+public class EditCalenderReq {
 
     @NotNull(message = "{validation.notEmpty}")
-    private Long userId;
+    private Long id;
 
-    @NotBlank(message = "{validation.notEmpty}")
     @Size(max = 100, message = "{validation.size}")
     private String name;
 
-    @NotBlank(message = "{validation.notEmpty}")
     @Pattern(
             regexp = "^#[0-9A-Fa-f]{6}$",
             message = "顏色格式錯誤，請使用 #RRGGBB 格式"

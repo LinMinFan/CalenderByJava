@@ -3,6 +3,8 @@ package org.example.calendar.app.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.example.calendar.app.service.CalenderService;
 import org.example.calendar.app.vo.AddCalenderReq;
+import org.example.calendar.app.vo.DeleteCalenderReq;
+import org.example.calendar.app.vo.EditCalenderReq;
 import org.example.calendar.common.BaseService;
 import org.example.calendar.common.StatusMessage;
 import org.example.calendar.dao.mapper.CalendarMapper;
@@ -25,17 +27,17 @@ public class CalenderServiceImpl extends BaseService implements CalenderService 
      * 新增行事曆
      *
      * @author jack
-     * @param req
-     * @return
-     * @throws Exception
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String executeCalender(AddCalenderReq req) throws CustomAPIException, Exception {
+    public String executeAddCalender(AddCalenderReq req) throws CustomAPIException, Exception {
         String response = "";
 
         try {
-            // 1. 將 AddEventReq 轉成 MyBatis-Generator 的 Event 實體
+            // 1. 將 AddCalenderReq 轉成 Calendar 實體
             Calendar calendar = new Calendar();
             BeanUtils.copyProperties(req, calendar);
 
@@ -56,4 +58,80 @@ public class CalenderServiceImpl extends BaseService implements CalenderService 
         return response;
     }
 
+    /**
+     * 編輯行事曆
+     *
+     * @author jack
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String executeEditCalender(EditCalenderReq req) throws CustomAPIException,Exception {
+        String response = "";
+
+        try {
+
+            // 1. 先檢查是否存在
+            Calendar existing = calendarMapper.selectByPrimaryKey(req.getId());
+            if (existing == null) {
+                return executeAPIResponseForMap(null, StatusMessage.N_203, null);
+            }
+
+            // 2. 將 EditEventReq 轉換成 Event 實體
+            Calendar calendar = new Calendar();
+            BeanUtils.copyProperties(req, calendar);
+
+            // 3. 執行更新 (只更新非 null 欄位)
+            int rows = calendarMapper.updateByPrimaryKeySelective(calendar);
+
+            if (rows != 1) {
+                return executeAPIResponseForMap(null, StatusMessage.N_300, null);
+            }
+
+            response = executeAPIResponseForMap(null, StatusMessage.N_0, null);
+        } catch (Exception e) {
+            log.error("CalenderServiceImpl executeEditCalender Exception", e);
+            throw e;
+        }
+
+        return response;
+    }
+
+    /**
+     * 刪除行事曆
+     *
+     * @author jack
+     * @param req 請求物件
+     * @return 成功訊息
+     * @throws Exception 操作失敗時
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String executeDeleteCalender(DeleteCalenderReq req) throws CustomAPIException,Exception {
+        String response = "";
+
+        try {
+
+            // 1. 先檢查是否存在
+            Calendar existing = calendarMapper.selectByPrimaryKey(req.getId());
+            if (existing == null) {
+                return executeAPIResponseForMap(null, StatusMessage.N_203, null);
+            }
+
+            // 2. 執行刪除
+            int rows = calendarMapper.deleteByPrimaryKey(req.getId());
+            if (rows != 1) {
+                return executeAPIResponseForMap(null, StatusMessage.N_300, null);
+            }
+
+            response = executeAPIResponseForMap(null, StatusMessage.N_0, null);
+        } catch (Exception e) {
+            log.error("CalenderServiceImpl executeDeleteCalender Exception", e);
+            throw e;
+        }
+
+        return response;
+    }
 }
