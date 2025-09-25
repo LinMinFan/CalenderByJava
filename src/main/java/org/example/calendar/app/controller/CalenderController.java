@@ -68,8 +68,9 @@ public class CalenderController extends BaseController {
      * @return 成功訊息
      * @throws Exception 操作失敗時
      */
-    @PostMapping(value = "/queryYear")
-    public ResponseEntity<String> queryCalendar(@RequestBody @Validated QueryCalendarReq req) throws Exception {
-        return returnResponse("Calendar data Success " + req.getYear());
+    @PostMapping(value = "/queryCalender")
+    public ResponseEntity<String> queryCalender(@RequestBody @Validated QueryCalendarReq req) throws Exception {
+        String response = service.executeQueryCalender(req);
+        return returnResponse(response);
     }
 }

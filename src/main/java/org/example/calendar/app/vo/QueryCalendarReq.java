@@ -1,13 +1,11 @@
 package org.example.calendar.app.vo;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class QueryCalendarReq {
 
-    @Size(min = 4, max = 4, message = "{validation.size}")
-    @NotBlank(message = "{validation.notEmpty}")
-    private String year;
+    @NotNull(message = "{validation.notEmpty}")
+    private Long userId;
 }
