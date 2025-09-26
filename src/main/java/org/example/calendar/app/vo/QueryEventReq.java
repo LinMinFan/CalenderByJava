@@ -22,15 +22,20 @@ public class QueryEventReq {
      */
     @NotNull(message = "{validation.notEmpty}")
     @Pattern(
-            regexp = "^(19\\d{2}|20\\d{2})$",
-            message = "年份格式錯誤，請使用 1900–2099 之間的 yyyy 格式"
+            regexp = "^(19\\d{2}|20\\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+            message = "開始日期格式錯誤，請使用 yyyy-MM-dd"
     )
-    private String year;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String startDate;
 
     /**
      * 查詢月份（必填）
      */
     @NotNull(message = "{validation.notEmpty}")
-    @Pattern(regexp = "^(0[1-9]|1[0-2])$", message = "月份格式錯誤，請使用 MM 格式")
-    private String month;
+    @Pattern(
+            regexp = "^(19\\d{2}|20\\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+            message = "結束日期格式錯誤，請使用 yyyy-MM-dd"
+    )
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String endDate;
 }

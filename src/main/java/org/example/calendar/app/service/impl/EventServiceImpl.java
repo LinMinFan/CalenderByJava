@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -153,16 +155,12 @@ public class EventServiceImpl extends BaseService implements EventService {
         String response = "";
 
         try {
-            // 1. 計算該月份的開始與結束時間
-            int year = Integer.parseInt(req.getYear());
-            int month = Integer.parseInt(req.getMonth());
-            java.time.YearMonth ym = java.time.YearMonth.of(year, month);
+            // 1. 解析 startDate 與 endDate
+            LocalDate startDate = LocalDate.parse(req.getStartDate());
+            LocalDate endDate   = LocalDate.parse(req.getEndDate());
 
-            java.time.LocalDate startDate = ym.atDay(1);
-            java.time.LocalDate endDate = ym.atEndOfMonth();
-
-            java.sql.Timestamp startTimestamp = java.sql.Timestamp.valueOf(startDate.atStartOfDay());
-            java.sql.Timestamp endTimestamp = java.sql.Timestamp.valueOf(endDate.atTime(23, 59, 59));
+            Timestamp startTimestamp = Timestamp.valueOf(startDate.atStartOfDay());
+            Timestamp endTimestamp   = Timestamp.valueOf(endDate.atTime(23, 59, 59));
 
             // 2. 建立 MyBatis Generator Example
             EventExample example = new EventExample();
